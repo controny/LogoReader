@@ -24,14 +24,14 @@ VALIDATION_PERCENTAGE = 10
 TEST_PERCENTAGE = 10
 
 # 神经网络参数的设置
-LEARNING_RATE_BASE = 0.5
+LEARNING_RATE_BASE = 0.8
 LEARNING_RATE_DECAY_FREQUENCY = 100
-LEARNING_RATE_DECAY = 0.95
+LEARNING_RATE_DECAY = 0.99
 REGULARIZATION_RATE = 0.0001
 MOVING_AVERAGE_DECAY = 0.99
 VALIDATION_FREQUENCY = 50 
 STEPS = 4000
-BATCH = 50 
+BATCH = 100 
 
 # 输入以下指令查看日志
 # tensorboard --logdir=../../data/log/supervisor.log
@@ -86,8 +86,11 @@ def main():
 	tf.summary.scalar('accuracy', evaluation_step)
 
     merged = tf.summary.merge_all()
-
-    with tf.Session() as sess:
+    
+    # Allow gpu growth
+    config = tf.ConfigProto()
+    config.gpu_options.allow_growth = True
+    with tf.Session(config=config) as sess:
         # 生成日志对象
         summary_writer = tf.summary.FileWriter(SUMMARY_DIR, sess.graph)
         init = tf.global_variables_initializer()
