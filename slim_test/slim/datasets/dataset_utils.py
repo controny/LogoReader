@@ -29,10 +29,8 @@ LABELS_FILENAME = 'labels.txt'
 
 def int64_feature(values):
   """Returns a TF-Feature of int64s.
-
   Args:
     values: A scalar or list of values.
-
   Returns:
     A TF-Feature.
   """
@@ -43,10 +41,8 @@ def int64_feature(values):
 
 def bytes_feature(values):
   """Returns a TF-Feature of bytes.
-
   Args:
     values: A string.
-
   Returns:
     A TF-Feature.
   """
@@ -55,10 +51,8 @@ def bytes_feature(values):
 
 def float_feature(values):
   """Returns a TF-Feature of floats.
-
   Args:
     values: A scalar of list of values.
-
   Returns:
     A TF-Feature.
   """
@@ -79,7 +73,6 @@ def image_to_tfexample(image_data, image_format, height, width, class_id):
 
 def download_and_uncompress_tarball(tarball_url, dataset_dir):
   """Downloads the `tarball_url` and uncompresses it locally.
-
   Args:
     tarball_url: The URL of a tarball file.
     dataset_dir: The directory where the temporary files are stored.
@@ -101,7 +94,6 @@ def download_and_uncompress_tarball(tarball_url, dataset_dir):
 def write_label_file(labels_to_class_names, dataset_dir,
                      filename=LABELS_FILENAME):
   """Writes a file with the list of class names.
-
   Args:
     labels_to_class_names: A map of (integer) labels to class names.
     dataset_dir: The directory in which the labels file should be written.
@@ -116,11 +108,9 @@ def write_label_file(labels_to_class_names, dataset_dir,
 
 def has_labels(dataset_dir, filename=LABELS_FILENAME):
   """Specifies whether or not the dataset directory contains a label map file.
-
   Args:
     dataset_dir: The directory in which the labels file is found.
     filename: The filename where the class names are written.
-
   Returns:
     `True` if the labels file exists and `False` otherwise.
   """
@@ -129,11 +119,9 @@ def has_labels(dataset_dir, filename=LABELS_FILENAME):
 
 def read_label_file(dataset_dir, filename=LABELS_FILENAME):
   """Reads the labels file and returns a mapping from ID to class name.
-
   Args:
     dataset_dir: The directory in which the labels file is found.
     filename: The filename where the class names are written.
-
   Returns:
     A map from a label (integer) to class name.
   """

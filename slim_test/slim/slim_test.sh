@@ -1,17 +1,17 @@
 # Where the pre-trained Inception Resnet V2 checkpoint is saved to.
-PRETRAINED_CHECKPOINT_DIR=/tmp/checkpoints
+PRETRAINED_CHECKPOINT_DIR=/root/Desktop/LogoReader/data/slim_test/checkpoints
 
 # Where the pre-trained Inception Resnet V2 checkpoint is saved to.
 MODEL_NAME=inception_resnet_v2
 
 # Where the training (fine-tuned) checkpoint and logs will be saved to.
-TRAIN_DIR=/tmp/training/${MODEL_NAME}
+TRAIN_DIR=/root/Desktop/LogoReader/data/slim_test/training/${MODEL_NAME}
 
 # Where the dataset is saved to.
-DATASET_DIR=/root/Desktop/LogoReader/data/CarLogos51
+DATASET_DIR=/root/Downloads/CarLogos51
 
 # Fine-tune only the new layers for 1000 steps.
-python train_image_classifier.py \
+python my_train_image_classifier.py \
   --train_dir=${TRAIN_DIR} \
   --dataset_name=flowers \
   --dataset_split_name=train \
@@ -31,7 +31,7 @@ python train_image_classifier.py \
   --weight_decay=0.00004
 
 # Run evaluation.
-python eval_image_classifier.py \
+python my_eval_image_classifier.py \
   --checkpoint_path=${TRAIN_DIR} \
   --eval_dir=${TRAIN_DIR} \
   --dataset_name=flowers \
