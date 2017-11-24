@@ -118,7 +118,7 @@ public:
         for (int i = 0; i < 51; ++i) {
             for (int j = 0; j < QUERT_SIZE; ++j) {
                 cout << i * QUERT_SIZE + j << endl;
-                Mat baseImg = imread(all[i][j]);
+                Mat baseImg = imread(all[i][j], IMREAD_GRAYSCALE);
                 vector<KeyPoint> keypoints;
                 f2d->detect(baseImg, keypoints);
                 f2d->compute(baseImg, keypoints, total[i * QUERT_SIZE + j]);
@@ -179,7 +179,7 @@ public:
         }
         std::vector<DMatch> matches;
         for (int i = 0; i < 51; ++i) {
-            Mat img = imread(all[i][0]);
+            Mat img = imread(all[i][0], IMREAD_GRAYSCALE);
             f2d->detect(img, keypoints);
             Mat temp;
             f2d->compute(img, keypoints, temp);
