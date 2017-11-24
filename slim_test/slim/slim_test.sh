@@ -8,12 +8,12 @@ MODEL_NAME=inception_resnet_v2
 TRAIN_DIR=/root/Desktop/LogoReader/data/slim_test/training/${MODEL_NAME}
 
 # Where the dataset is saved to.
-DATASET_DIR=/root/Downloads/CarLogos51
+DATASET_DIR=/root/Desktop/MX_down/Binarization_CarLogo51
 
 # Fine-tune only the new layers for 1000 steps.
 python my_train_image_classifier.py \
   --train_dir=${TRAIN_DIR} \
-  --dataset_name=flowers \
+  --dataset_name=carlogos51 \
   --dataset_split_name=train \
   --dataset_dir=${DATASET_DIR} \
   --model_name=${MODEL_NAME} \

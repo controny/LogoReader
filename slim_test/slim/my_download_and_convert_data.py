@@ -55,7 +55,7 @@ tf.app.flags.DEFINE_string(
 
 
 def main(_):
-  download_and_convert.run("/root/Desktop/MX down/Binarization_CarLogo51")
+  download_and_convert.run("/root/Desktop/MX_down/Binarization_CarLogo51")
   # if not FLAGS.dataset_name:
   #   raise ValueError('You must supply the dataset name with --dataset_name')
   # if not FLAGS.dataset_dir:

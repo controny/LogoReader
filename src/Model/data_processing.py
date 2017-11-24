@@ -11,10 +11,11 @@ import image_processing
 import pdb
 import logging
 
-DATASET = 'Binarization_CarLogo51'
+# DATASET = 'Binarization_CarLogo51'
+DATASET = 'CarLogos51'
 CACHE_DIR = '../../data/bottleneck/' + DATASET
-# INPUT_DATA = '../../data/' + DATASET
-INPUT_DATA = '/root/Desktop/MX/' + DATASET
+INPUT_DATA = '/root/Downloads/' + DATASET
+# INPUT_DATA = '/tmp/' + DATASET
 
 CLASS_INDEX_FILE = '../../data/class_index.txt'
 
