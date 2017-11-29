@@ -31,7 +31,7 @@ using namespace cv;  //
 using namespace std;
 
 class TestMaxSIFT {
-private:
+public:
     MaxSIFT MAXSIFT;
     Ptr<Feature2D> f2d = xfeatures2d::SIFT::create();
 public:
@@ -118,7 +118,7 @@ public:
         for (int i = 0; i < 51; ++i) {
             for (int j = 0; j < QUERT_SIZE; ++j) {
                 cout << i * QUERT_SIZE + j << endl;
-                Mat baseImg = imread(all[i][j]);
+                Mat baseImg = imread(all[i][j], IMREAD_GRAYSCALE);
                 vector<KeyPoint> keypoints;
                 f2d->detect(baseImg, keypoints);
                 f2d->compute(baseImg, keypoints, total[i * QUERT_SIZE + j]);
@@ -156,6 +156,39 @@ public:
         imshow("max-sift", img_matches);
         waitKey(0);
     }
+
+    // 展示一张图片与查询图片的query_test
+    void showOneImage(string test, string query) {
+        Mat image_test = imread(test, IMREAD_GRAYSCALE);
+        Mat image_query = imread(query, IMREAD_GRAYSCALE);
+        Mat descriptors_test, descriptors_query;
+        vector<KeyPoint> keypoints_test, keypoints_query;
+        f2d->detect(image_test, keypoints_test);
+        f2d->compute(image_test, keypoints_test, descriptors_test);
+        f2d->detect(image_query, keypoints_query);
+        f2d->compute(image_query, keypoints_query, descriptors_query);
+        vector<DMatch> matches;
+        MAXSIFT.ratioTest(matches, descriptors_test, descriptors_query);
+        // SIFT 图片
+        showTheMatch(image_test, keypoints_test, image_query, keypoints_query, matches);
+        
+        
+
+        float* test;
+        for (int i = 0; i < descriptors_test.rows; i++) {
+            test = descriptors_test.ptr<float>(i);
+            MAXSIFT.max_sift(test);
+        }
+        for (int i = 0; i < descriptors_query.rows; i++) {
+            test = descriptors_query.ptr<float>(i);
+            MAXSIFT.max_sift(test);
+        }
+        MAXSIFT.ratioTest(matches, descriptors_test, descriptors_query);
+        showTheMatch(image_test, keypoints_test, image_query, keypoints_query, matches);
+
+
+
+    }
     
     // 用MAX-SIFT方法来匹配这些图片与基准图片，选取匹配点数最多的品牌作为结果，并可以显示出两张图片的匹配结果
     // 之前用于检查错误
@@ -179,7 +212,7 @@ public:
         }
         std::vector<DMatch> matches;
         for (int i = 0; i < 51; ++i) {
-            Mat img = imread(all[i][0]);
+            Mat img = imread(all[i][0], IMREAD_GRAYSCALE);
             f2d->detect(img, keypoints);
             Mat temp;
             f2d->compute(img, keypoints, temp);
@@ -201,6 +234,8 @@ public:
         }
         return pos;
     }
+    
+
     
     
     // 用MAX-SIFT方法来匹配这些图片与基准图片，选取匹配点数最多的品牌作为结果

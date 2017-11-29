@@ -110,7 +110,7 @@ public:
     }
     
     void revertTheDescriptor(float* p,pfun f) {
-        vector<float> temp(p, p + sizeof(p) / sizeof(float));
+        vector<float> temp(p, p + 128);
         for (int i = 0; i < 128; i++) {
             int where = f(i);
             p[i] = temp[where];
