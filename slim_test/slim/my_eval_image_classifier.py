@@ -20,6 +20,7 @@ from __future__ import print_function
 
 import math
 import tensorflow as tf
+import os
 
 from datasets import dataset_factory
 from nets import nets_factory
@@ -86,7 +87,9 @@ def main(_):
   if not FLAGS.dataset_dir:
     raise ValueError('You must supply the dataset directory with --dataset_dir')
 
-  tf.logging.set_verbosity(tf.logging.INFO)
+  # Logging output setting
+  os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+  tf.logging.set_verbosity(tf.logging.ERROR)
   with tf.Graph().as_default():
     tf_global_step = slim.get_or_create_global_step()
 
