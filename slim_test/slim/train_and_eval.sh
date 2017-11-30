@@ -24,7 +24,6 @@ python my_train_image_classifier.py \
   --trainable_scopes=InceptionResnetV2/Logits,InceptionResnetV2/AuxLogits,InceptionResnetV2/Conv2d_7b_1x1 \
   --max_number_of_steps=5000 \
   --batch_size=100 \
-  --preprocessing_name=inception \
   --learning_rate=0.8 \
   --learning_rate_decay_type=exponential \
   --num_epochs_per_decay=50 \
@@ -32,7 +31,8 @@ python my_train_image_classifier.py \
   --save_summaries_secs=300 \
   --log_every_n_steps=100 \
   --optimizer=adagrad \
-  --weight_decay=0.00004
+  --weight_decay=0.00004 \
+  --preprocessing_name='carlogo'
 
 echo Begin to evaluate
 # Run evaluation with test dataset.
