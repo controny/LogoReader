@@ -88,8 +88,9 @@ def main(_):
     raise ValueError('You must supply the dataset directory with --dataset_dir')
 
   # Logging output setting
-  os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-  tf.logging.set_verbosity(tf.logging.ERROR)
+  os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
+  tf.logging.set_verbosity(tf.logging.INFO)
+
   with tf.Graph().as_default():
     tf_global_step = slim.get_or_create_global_step()
 

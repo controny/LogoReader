@@ -386,7 +386,8 @@ def main(_):
 
   # Logging output setting
   os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-  tf.logging.set_verbosity(tf.logging.ERROR)
+  tf.logging.set_verbosity(tf.logging.INFO)
+
   with tf.Graph().as_default():
     #######################
     # Config model_deploy #

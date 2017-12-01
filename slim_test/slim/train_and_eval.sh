@@ -12,7 +12,8 @@ TRAIN_DIR=/root/Desktop/LogoReader/data/slim_test/training/${MODEL_NAME}
 # Where the dataset is saved to.
 DATASET_DIR=/root/Downloads/CarLogos51
 
-echo Begin to train
+echo ----------------Begin to train----------------
+# 'max_number_of_steps' means training will stop if global_step is greater than 'max_number_of_steps'
 python my_train_image_classifier.py \
   --train_dir=${TRAIN_DIR} \
   --dataset_name=carlogos51 \
@@ -22,20 +23,19 @@ python my_train_image_classifier.py \
   --checkpoint_path=${PRETRAINED_CHECKPOINT_DIR}/${MODEL_NAME}.ckpt \
   --checkpoint_exclude_scopes=InceptionResnetV2/Logits,InceptionResnetV2/AuxLogits \
   --trainable_scopes=InceptionResnetV2/Logits,InceptionResnetV2/AuxLogits,InceptionResnetV2/Conv2d_7b_1x1 \
-  --max_number_of_steps=5000 \
+  --max_number_of_steps=5010 \
   --batch_size=100 \
-  --learning_rate=0.8 \
+  --learning_rate=0.001 \
   --learning_rate_decay_type=exponential \
   --num_epochs_per_decay=50 \
-  --save_interval_secs=300 \
-  --save_summaries_secs=300 \
+  --save_interval_secs=60 \
+  --save_summaries_secs=60 \
   --log_every_n_steps=100 \
   --optimizer=adagrad \
   --weight_decay=0.00004 \
   --preprocessing_name='carlogo'
 
-echo Begin to evaluate
-# Run evaluation with test dataset.
+echo ------------------Begin to evaluate----------------
 python my_eval_image_classifier.py \
   --alsologtostderr \
   --checkpoint_path=${TRAIN_DIR} \
@@ -44,4 +44,6 @@ python my_eval_image_classifier.py \
   --dataset_split_name=test \
   --dataset_dir=${DATASET_DIR} \
   --model_name=${MODEL_NAME}
+  --preprocessing_name='carlogo'
+
 
