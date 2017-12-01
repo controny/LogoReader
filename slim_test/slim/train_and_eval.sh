@@ -43,7 +43,7 @@ python my_eval_image_classifier.py \
   --dataset_name=carlogos51 \
   --dataset_split_name=test \
   --dataset_dir=${DATASET_DIR} \
-  --model_name=${MODEL_NAME}
+  --model_name=${MODEL_NAME} \
   --preprocessing_name='carlogo'
 
 

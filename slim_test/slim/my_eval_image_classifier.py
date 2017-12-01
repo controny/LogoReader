@@ -88,7 +88,7 @@ def main(_):
     raise ValueError('You must supply the dataset directory with --dataset_dir')
 
   # Logging output setting
-  os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
+  os.environ['TF_CPP_MIN_LOG_LEVEL'] = '0'
   tf.logging.set_verbosity(tf.logging.INFO)
 
   with tf.Graph().as_default():
