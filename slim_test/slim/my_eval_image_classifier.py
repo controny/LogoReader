@@ -88,8 +88,8 @@ def main(_):
     raise ValueError('You must supply the dataset directory with --dataset_dir')
 
   # Logging output setting
-  os.environ['TF_CPP_MIN_LOG_LEVEL'] = '0'
-  tf.logging.set_verbosity(tf.logging.INFO)
+  os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+  tf.logging.set_verbosity(tf.logging.ERROR)
 
   with tf.Graph().as_default():
     tf_global_step = slim.get_or_create_global_step()
@@ -182,13 +182,18 @@ def main(_):
 
     tf.logging.info('Evaluating %s' % checkpoint_path)
 
+    # Allow gpu growth
+    session_config = tf.ConfigProto()
+    session_config.gpu_options.allow_growth = True
+
     slim.evaluation.evaluate_once(
         master=FLAGS.master,
         checkpoint_path=checkpoint_path,
         logdir=FLAGS.eval_dir,
         num_evals=num_batches,
         eval_op=list(names_to_updates.values()),
-        variables_to_restore=variables_to_restore)
+        variables_to_restore=variables_to_restore,
+        session_config=session_config)
 
 
 if __name__ == '__main__':
