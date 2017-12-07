@@ -1,6 +1,7 @@
 import numpy as np
 import os
 import tensorflow as tf
+import urllib2
 
 from datasets import imagenet
 from nets import inception_resnet_v2
@@ -8,8 +9,8 @@ from preprocessing import inception_preprocessing as preprocessing
 
 def run(image_string):
 
-    checkpoints_dir = '/home/dimitri/Desktop/checkpoints'
-    checkpoints_file_name = 'inception_resnet_v2_2016_08_30.ckpt'
+    checkpoints_dir = '/root/Desktop/LogoReader/data/slim_test/training/inception_resnet_v2'
+    checkpoints_file_name = tf.train.latest_checkpoint(checkpoints_dir) 
 
     slim = tf.contrib.slim
 
@@ -44,7 +45,7 @@ def run(image_string):
         # parameters for layers -- like stride, padding etc.
         with slim.arg_scope(inception_resnet_v2.inception_resnet_v2_arg_scope()):
             logits, _ = inception_resnet_v2.inception_resnet_v2(processed_images,
-                                   num_classes=1001,
+                                   num_classes=51,
                                    is_training=False)
         
         # In order to get probabilities we apply softmax on the output.
@@ -72,6 +73,8 @@ def run(image_string):
             sorted_inds = [i[0] for i in sorted(enumerate(-probabilities),
                                                 key=lambda x:x[1])]
 
+        print('index: %d' % sorted_inds[0])
+
         names = imagenet.create_readable_names_for_imagenet_labels()
         for i in range(5):
             index = sorted_inds[i]
@@ -82,9 +85,12 @@ def run(image_string):
             # on 1000 classes.
             print('Probability %0.2f => [%s]' % (probabilities[index], names[index]))
             
-        res = slim.get_model_variables()
+        # res = slim.get_model_variables()
 
 if __name__ == '__main__':
-    img_path = '/home/dimitri/Pictures/daisy.jpg'
-    image_string = open(img_path).read()
+    # img_path = '/root/Downloads/CarLogos51/Benz/0033.jpg'
+    # image_string = open(img_path).read()
+    img_url = '\
+            https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1512648031102&di=bdea805db6d13c9592372549fa003d68&imgtype=0&src=http%3A%2F%2Fpic32.photophoto.cn%2F20140707%2F0022005522358955_b.jpg'
+    image_string = urllib2.urlopen(img_url).read()
     run(image_string)
