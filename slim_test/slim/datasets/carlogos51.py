@@ -40,6 +40,23 @@ _ITEMS_TO_DESCRIPTIONS = {
     'label': 'A single integer between 0 and 50',
 }
 
+def create_readable_names_for_imagenet_labels(dataset_dir):
+    src = os.path.join(dataset_dir, "labels.txt")
+    f = open(src)
+    line = f.readline()
+    index = 0;
+    label_to_name = {};
+    while line:
+        thing = line.split('\n')[0]
+        # print thing
+        label_to_name[index] = thing.split(':')[1]
+
+        # print thing.split(':')[1]
+        line = f.readline()
+        index += 1
+    f.close()
+    return label_to_name
+
 
 def get_split(split_name, dataset_dir, file_pattern=None, reader=None):
   """Gets a dataset tuple with instructions for reading flowers.

@@ -3,7 +3,7 @@ import os
 import tensorflow as tf
 import urllib2
 
-from datasets import imagenet
+from datasets import carlogos51 as images 
 from nets import inception_resnet_v2
 from preprocessing import inception_preprocessing as preprocessing
 
@@ -11,6 +11,8 @@ def run(image_string):
 
     checkpoints_dir = '/root/Desktop/LogoReader/data/slim_test/training/inception_resnet_v2'
     checkpoints_file_name = tf.train.latest_checkpoint(checkpoints_dir) 
+
+    dataset_dir = '/root/Downloads/CarLogos51'
 
     slim = tf.contrib.slim
 
@@ -73,9 +75,7 @@ def run(image_string):
             sorted_inds = [i[0] for i in sorted(enumerate(-probabilities),
                                                 key=lambda x:x[1])]
 
-        print('index: %d' % sorted_inds[0])
-
-        names = imagenet.create_readable_names_for_imagenet_labels()
+        names = images.create_readable_names_for_imagenet_labels(dataset_dir)
         for i in range(5):
             index = sorted_inds[i]
             # Now we print the top-5 predictions that the network gives us with
@@ -86,6 +86,7 @@ def run(image_string):
             print('Probability %0.2f => [%s]' % (probabilities[index], names[index]))
             
         # res = slim.get_model_variables()
+        return names[ sorted_inds[0] ]
 
 if __name__ == '__main__':
     # img_path = '/root/Downloads/CarLogos51/Benz/0033.jpg'
