@@ -24,7 +24,7 @@ python my_train_image_classifier.py \
   --trainable_scopes=InceptionResnetV2/Logits,InceptionResnetV2/AuxLogits,InceptionResnetV2/Conv2d_7b_1x1,InceptionResnetV2/Block8 \
   --max_number_of_steps=6000 \
   --batch_size=100 \
-  --learning_rate=0.5 \
+  --learning_rate=0.01 \
   --learning_rate_decay_type=exponential \
   --num_epochs_per_decay=50 \
   --save_interval_secs=60 \
